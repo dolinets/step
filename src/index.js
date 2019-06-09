@@ -3,10 +3,10 @@ import View from './view';
 import Controller from './controller';
 import { save, load } from './helpers';
 
-const state = load();
+const books = load();
 
-const model = new Model(state || undefined);
-model.on('change', state => save(state));
+const model = new Model(books || undefined);
+model.on('change', books => save(books));
 
 const view = new View();
 const controller = new Controller(model, view);

@@ -11,24 +11,16 @@
     <body>
         <main id="app">
             <header>
-                <h1>Книги</h1>
+                <h1>Книги</h1><input type="text" id="search" placeholder="Введите название книги">
             </header>
 
             <ul id="book-list">
-				<li class="book-item" data-id="1559918985642">
-					<label class="title">asdasdasd</label>
-					<input type="text" class="field-name">
-					<button class="edit">Изменить</button>
-					<button class="remove">Удалить</button>
-					<div class="book-detail">
-						<label class="author">asdasdasd</label>
-						<input type="text" class="field-author">
-					</div>
-				</li>
+
             </ul>
 
             <form id="book-form">
-                <input id="add-input" type="text">
+                <span>Введите название:</span><input id="add-input" type="text">
+				<span>Введите автора:</span><input id="add-input-author" type="text">
                 <button id="add-button" type="submit">Добавить</button>
             </form>
         </main>

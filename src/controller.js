@@ -1,4 +1,5 @@
 class Controller {
+
     constructor(model, view) {
         this.model = model;
         this.view = view;
@@ -10,7 +11,11 @@ class Controller {
         view.show(model.items);
     }
 
-    addBook(title, author) {
+    addBook(data) {
+		console.log(data);
+		const title = data.valueName;
+		const author = data.valueAuthor;
+		
         const item = this.model.addItem({
             id: Date.now(),
             title,
@@ -23,7 +28,6 @@ class Controller {
     editBook({ id, title, author }) {
 		
 		const item = this.model.updateItem(id, { title, author });
-		console.log(item);
         this.view.editItem(item);
     }
 

@@ -91,6 +91,7 @@ main {
 
 header {
     display: flex;
+	justify-content: space-between;
     align-items: center;
     padding: 0 1rem;
     color: white;
@@ -102,7 +103,9 @@ header {
 header h1 {
     display: inline-block;
     color: #323330;
-    margin: 1rem auto;
+}
+#search {
+	min-width: 40%;
 }
 
 
@@ -120,10 +123,19 @@ header h1 {
     padding: 1em;
     align-items: center;
 }
-
-.book-item.completed * {
-    color: lightgray;
+.author {
+	font-size: 0.8rem;
 }
+ 
+.editing .title {order: 0;}
+.editing .author {order: 1;}
+.editing .field-name {order: 2;}
+.editing .field-author {
+	order: 3;
+	margin-top: 20px;
+}
+.editing .edit {order: 8;}
+.editing .remove {order: 9;}
 
 .book-item .title, 
 .book-item .author,
@@ -137,11 +149,8 @@ header h1 {
     display: none;
 }
 
-.book-detail {
-	width: 100%;
-}
 .book-item.editing .title,
-.book-item.completed .author{
+.book-item.editing .author{
     display: none;
 }
 
@@ -149,7 +158,6 @@ header h1 {
 .book-item.editing .field-author{
     display: block;
     flex: 1;
-    margin-right: 16px;
 }
 
 .book-item button {
@@ -161,12 +169,18 @@ header h1 {
     opacity: 1;
 }
 
+.author, 
+.field-author,
+.field-name {
+	min-width: 85%;
+}
 
 
 /* book form */
 
 #book-form {
     display: flex;
+	flex-direction: column;
     background-color: #FAFAFA;
     border-top: 1px solid rgba(0,0,0,.1);
     padding: 10px;
@@ -178,10 +192,24 @@ header h1 {
     transition: all .2s;
 }
 
+#book-form span{
+	margin-top: 20px;
+}
+
 #book-form input:focus {
     border: 1px solid #f0db4f;
 }
 
 #book-form button {
     margin-left: 10px;
+}
+
+ 
+@media (max-width: 600px) {
+  .title {order: 0;}
+  .author {order: 1;}
+  .field-name {order: 2;}
+  .field-author {order: 3;}
+  .edit {order: 8;}
+  .remove {order: 9;}
 }

@@ -6,6 +6,7 @@ class View extends EventEmitter {
 
         this.form = document.getElementById('book-form');
         this.input = document.getElementById('add-input');
+		this.inputAddAuthor = document.getElementById('add-input-author');
         this.list = document.getElementById('book-list');
         this.form.addEventListener('submit', this.handleAdd.bind(this));
     }
@@ -17,7 +18,7 @@ class View extends EventEmitter {
 		const editInputAuthor = createElement('input', { type: 'text', className: 'field-author' });
         const editButton = createElement('button', { className: 'edit' }, 'Изменить');
         const deleteButton = createElement('button', { className: 'remove' }, 'Удалить');
-        const item = createElement('li', { className: 'book-item', 'data-id': book.id }, labelName, labelAuthor, editInputName, editInputAuthor, editButton, deleteButton);
+        const item = createElement('li', { className: 'book-item', 'data-id': book.id }, labelName, editInputName, editButton, deleteButton, labelAuthor, editInputAuthor);
 
         return this.addEventListeners(item);
     }
@@ -42,8 +43,9 @@ class View extends EventEmitter {
         if (!this.input.value) return alert('Необходимо ввести название книги.');
 
         const valueName = this.input.value;
+		const valueAuthor = this.inputAddAuthor.value;
 
-        this.emit('add', valueName);
+        this.emit('add', {valueName, valueAuthor});
     }
 
     handleEdit({ target }) {
@@ -78,15 +80,17 @@ class View extends EventEmitter {
         books.forEach(book => {
             const listItem = this.createListItem(book);
 			this.input.value = '';
+			this.inputAddAuthor.value = '';
             this.list.appendChild(listItem);
         });
     }
 
     addItem(book) {
-		if(book.author == undefined){
+		if(book.author === undefined){
 			book.author ='';	
 		}
 		this.input.value = '';
+		this.inputAddAuthor.value = '';
 		
 		const listItem = this.createListItem(book);			
         this.list.appendChild(listItem);
