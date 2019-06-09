@@ -7,12 +7,12 @@ class Controller {
         view.on('add', this.addBook.bind(this));
         view.on('edit', this.editBook.bind(this));
         view.on('remove', this.removeBook.bind(this));
+		view.on('search', this.searchBook.bind(this));
 
         view.show(model.items);
     }
 
     addBook(data) {
-		console.log(data);
 		const title = data.valueName;
 		const author = data.valueAuthor;
 		
@@ -34,6 +34,17 @@ class Controller {
     removeBook(id) {
         this.model.removeItem(id);
         this.view.removeItem(id);
+    }
+	
+	searchBook(search) {
+		const books=[];
+		this.model.items.forEach(function(item) {
+			if(item.title.indexOf(search)===0){
+				books.push(item);
+			}
+		});
+		this.view.clear();
+		this.view.show(books);
     }
 }
 

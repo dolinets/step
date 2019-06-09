@@ -3,14 +3,14 @@ import { EventEmitter, createElement } from './helpers';
 class View extends EventEmitter {
     constructor() {
         super();
-
+		this.search = document.getElementById('search');
         this.form = document.getElementById('book-form');
         this.input = document.getElementById('add-input');
 		this.inputAddAuthor = document.getElementById('add-input-author');
         this.list = document.getElementById('book-list');
         this.form.addEventListener('submit', this.handleAdd.bind(this));
+		this.search.addEventListener('input',this.handleSearch.bind(this));
     }
-
     createListItem(book) {
         const labelName = createElement('label', { className: 'title' }, book.title);
 		const labelAuthor = createElement('label', { className: 'author' }, book.author);
@@ -20,15 +20,19 @@ class View extends EventEmitter {
         const deleteButton = createElement('button', { className: 'remove' }, 'Удалить');
         const item = createElement('li', { className: 'book-item', 'data-id': book.id }, labelName, editInputName, editButton, deleteButton, labelAuthor, editInputAuthor);
 
-        return this.addEventListeners(item);
+		return this.addEventListeners(item);
     }
 
     addEventListeners(item) {
         const editButton = item.querySelector('button.edit');
         const removeButton = item.querySelector('button.remove');
 
+		
+
+
         editButton.addEventListener('click', this.handleEdit.bind(this));
         removeButton.addEventListener('click', this.handleRemove.bind(this));
+
 
         return item;
     }
@@ -76,6 +80,10 @@ class View extends EventEmitter {
         this.emit('remove', listItem.getAttribute('data-id'));
     }
 
+    clear() {
+		this.list.innerHTML = '';
+	}
+	
     show(books) {
         books.forEach(book => {
             const listItem = this.createListItem(book);
@@ -116,6 +124,11 @@ class View extends EventEmitter {
 
         this.list.removeChild(listItem);
     }
+	
+	handleSearch(val) {
+        this.emit('search', this.search.value);
+	}
+	
 }
 
 export default View;
